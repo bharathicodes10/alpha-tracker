@@ -226,7 +226,7 @@ export default function App() {
         <div className="flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200">
           <button
             onClick={() => setActiveView('table')}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+            className={`flex items-center gap-2 px-3 py-1.5 cursor-pointer rounded-md text-xs font-medium transition-all ${
               activeView === 'table'
                 ? 'bg-white text-slate-900 shadow-xs'
                 : 'text-slate-500 hover:text-slate-900'
@@ -237,7 +237,7 @@ export default function App() {
           </button>
           <button
             onClick={() => setActiveView('board')}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-md cursor-pointer text-xs font-medium transition-all ${
               activeView === 'board'
                 ? 'bg-white text-slate-900 shadow-xs'
                 : 'text-slate-500 hover:text-slate-900'
@@ -512,14 +512,14 @@ export default function App() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={closeDrawer}
-                    className="px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 transition-colors"
+                    className="px-3 py-1.5 rounded-lg cursor-pointer border border-slate-300 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={saveChanges}
                     disabled={!hasUnsavedChanges}
-                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-xs"
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium cursor-pointer text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-xs"
                   >
                     <Save className="w-3.5 h-3.5" />
                     Save Changes
