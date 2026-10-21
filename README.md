@@ -1,75 +1,44 @@
-# React + TypeScript + Vite
+# Contact Table & Board Prototype
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive Notion/Linear-inspired contact workspace prototype built with **React**, **TypeScript**, and **Tailwind CSS**. It provides dual synchronized views (Table and Kanban Board) powered by a single centralized source of truth.
 
-Currently, two official plugins are available:
+- **Live Demo:** will be updated soon
+- **Repository:** https://github.com/bharathicodes10/alpha-contact-tracker
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Architecture & Implementation Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Single Source of Truth:**
+   Both Table and Board views derive directly from a single local `contacts` state array. Updating a contact's stage or notes from either view immediately synchronizes across both interfaces without stale states or duplicated records.
 
-## Expanding the ESLint configuration
+2. **Shared Details Drawer:**
+   Clicking any row in the Table or card on the Board opens a non-destructive slide-over panel. Changes to pipeline stage or interaction notes are staged in a local draft state with dirty tracking (`hasUnsavedChanges`), allowing users to explicitly **Save Changes** or **Cancel/Discard**.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+3. **Defensive Edge Case Handling:**
+   - **Empty Group:** The *Customer* stage starts empty to demonstrate empty-state UX with clear contextual guidance.
+   - **Missing Data:** Seamlessly handles contacts with missing notes (italic placeholder fallbacks) or empty label arrays without breaking visual rhythm or layout height.
+   - **Accessibility & Keyboard:** The drawer can be dismissed immediately via the `Escape` key, and closing with unsaved changes prompts for user confirmation.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Design Choices & Information Hierarchy
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Table View:** Prioritized horizontal scanning density. High-signal columns (Name, Company, Stage, Owner) are anchored upfront, with lighter metadata (labels and notes preview) truncated to maintain uniform row height.
+- **Board View:** Emphasized stage distribution. Cards display essential context (Name, Role, Company, Owner badge) and an excerpt of interaction notes so operators can quickly gauge account sentiment without opening the record.
+- **Details Drawer:** Kept identity fields (Company, Role, Owner, Labels) in a read-only metadata grid to prevent accidental edits, while keeping high-frequency operational fields (Stage dropdown, Notes textarea) prominent and editable.
 
-```
+---
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Trade-offs
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Local State vs. State Management Library:** To keep the prototype lightweight and within the recommended 3–4 hour scope, native React `useState` and derived state were used rather than introducing external libraries like Zustand or Redux.
+- **Click-to-Move vs. Drag-and-Drop:** Implemented stage progression via the details panel and dropdown rather than adding heavy drag-and-drop primitives (e.g., `@dnd-kit`), ensuring rock-solid keyboard navigation, mobile touch safety, and deterministic state transitions.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
 
-```
+## What I Would Improve Next
+
+1. **Fluid Drag-and-Drop:** Implement pointer-friendly card dragging across board columns with optimistic UI updates.
+2. **Keyboard Navigation Shortcuts:** Add Linear-style `j`/`k` keyboard shortcuts to navigate up/down rows and open records instantly with `Enter`.
+3. **Filtering & Full-Text Search:** Introduce a global search bar to instantly query contacts by name, company, or label across both views.
