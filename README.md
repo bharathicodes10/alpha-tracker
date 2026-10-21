@@ -2,7 +2,7 @@
 
 A responsive Notion/Linear-inspired contact workspace prototype built with **React**, **TypeScript**, and **Tailwind CSS**. It provides dual synchronized views (Table and Kanban Board) powered by a single centralized source of truth.
 
-- **Live Demo:** will be updated soon
+- **Live Demo:** https://alpha-tracker-pi.vercel.app/
 - **Repository:** https://github.com/bharathicodes10/alpha-contact-tracker
 
 ---
