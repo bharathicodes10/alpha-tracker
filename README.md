@@ -32,7 +32,7 @@ A responsive Notion/Linear-inspired contact workspace prototype built with **Rea
 
 ## Trade-offs
 
-- **Local State vs. State Management Library:** To keep the prototype lightweight and within the recommended 3–4 hour scope, native React `useState` and derived state were used rather than introducing external libraries like Zustand or Redux.
+- **Local State vs. State Management Library:** To keep the prototype lightweight and within the recommended 3-4 hour scope, native React `useState` and derived state were used rather than introducing external libraries like Zustand or Redux.
 - **Click-to-Move vs. Drag-and-Drop:** Implemented stage progression via the details panel and dropdown rather than adding heavy drag-and-drop primitives (e.g., `@dnd-kit`), ensuring rock-solid keyboard navigation, mobile touch safety, and deterministic state transitions.
 
 ---
